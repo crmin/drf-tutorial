@@ -1,11 +1,54 @@
 # DRF Tutorial
 
+## Test Environment Setting
+
+### Install pipenv
+> This project using pipenv so, if you want to run, you have to install pipenv before run
+* using pip
+```bash
+$ pip install pipenv
+```
+
+* using homebrew (in mac)
+```bash
+$ brew install pipenv
+```
+
+* using apt (in ubuntu)
+```bash
+$ sudo apt install software-properties-common python-software-properties
+$ sudo add-apt-repository ppa:pypa/ppa
+$ sudo apt update
+$ sudo apt install pipenv
+```
+
+### Install Packages for Production Environment
+```bash
+$ pipenv install
+``` 
+Then, pipenv install packages:
+* django
+* djangorestframework
+* pygments
+* djangorestframework-jwt
+
+### Install Packages for Development Environment
+```bash
+$ pipenv install --dev
+``` 
+Then, pipenv install packages:
+* [production packages]
+* httpie
+
+If you want to run examples in README, you have to install packages for dev env.
+
+
 ## JWT Authentication
 
 ### Obtain JWT Token
 * Request
 ```bash
-http -f POST http://localhost:8000/auth/ username='username' password='password'
+$ http -f POST http://localhost:8000/auth/ username='username' password='password'
 ```
 * Response
 ```
@@ -29,7 +72,7 @@ X-Frame-Options: SAMEORIGIN
 Send request with `Authorization` header 
 
 ```bash
-http http://localhost:8000/ 'Authorization: JWT <token>'
+$ http http://localhost:8000/ 'Authorization: JWT <token>'
 ```
 
 * Response
@@ -86,7 +129,7 @@ X-Frame-Options: SAMEORIGIN
 ### Refresh Token
 * Request
 ```
-http -j POST http://localhost:8000/auth/refresh/ token=<token>
+$ http -j POST http://localhost:8000/auth/refresh/ token=<token>
 ```
 
 * Response
@@ -108,7 +151,7 @@ X-Frame-Options: SAMEORIGIN
 ### Verify Token
 * Request
 ```
-http -j POST http://localhost:8000/auth/verify/ token=<token>
+$ http -j POST http://localhost:8000/auth/verify/ token=<token>
 ```
 
 * Response
