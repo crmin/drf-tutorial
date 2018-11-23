@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from binascii import hexlify
 from datetime import timedelta
+from os import urandom
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,8 +23,25 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
+# Directory for ecret files
+SECRETS_ROOT = os.path.join(BASE_DIR, 'secrets')
+if not os.path.exists(SECRETS_ROOT):
+    os.mkdir(SECRETS_ROOT)
+elif os.path.isfile(SECRETS_ROOT):
+    raise ImproperlyConfigured('Cannot create directory for secret files.\
+    Already exists directory which has same name.')
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@*bd*3w5m7f*uhtbgo7x*zxc7qk(l&#oyv!m$ziqf0qr+x2usg'
+# SECRET_KEY = '@*bd*3w5m7f*uhtbgo7x*zxc7qk(l&#oyv!m$ziqf0qr+x2usg'
+SECRET_KEY_ROOT = os.path.join(SECRETS_ROOT, 'secret_key')
+if not os.path.exists(SECRET_KEY_ROOT):
+    with open(SECRET_KEY_ROOT, 'w') as f:
+        s = list('1234567890-=!@#$%^&*()_+qwertyuiopasghjklzxcvbnm')
+        f.write(''.join([s[int(hexlify(urandom(50)), 16) % len(s)] for i in range(50)]))
+elif os.path.isdir(SECRET_KEY_ROOT):
+    raise ImproperlyConfigured('Cannot create secret_key file. Already exists directory which has same name.')
+with open(SECRET_KEY_ROOT, 'r') as f:
+    SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
