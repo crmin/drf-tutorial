@@ -126,3 +126,8 @@ X-Frame-Options: SAMEORIGIN
     "token": "<token>"
 }
 ```
+
+## References
+* Base codes: [http://raccoonyy.github.io/drf3-tutorial-1.html](http://raccoonyy.github.io/drf3-tutorial-1.html)
+* DRF Reference: [https://www.django-rest-framework.org/api-guide/pagination/](https://www.django-rest-framework.org/api-guide/pagination/)
+* JWT Authentication: [https://getblimp.github.io/django-rest-framework-jwt/](https://getblimp.github.io/django-rest-framework-jwt/)
