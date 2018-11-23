@@ -7,6 +7,7 @@ name = "pypi"
 django = "*"
 djangorestframework = "*"
 pygments = "*"
+djangorestframework-jwt = "*"
 
 [dev-packages]
 httpie = "*"
